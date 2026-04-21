@@ -1,0 +1,97 @@
+.restaurant-banner {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  padding: 50px 0;
+}
+
+.restaurant-banner-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.restaurant-banner-image img {
+  border-radius: 20px;
+  height: 320px;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+.restaurant-banner-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--secondary);
+}
+
+.restaurant-banner-text p {
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.restaurant-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.restaurant-stats span {
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.menu-header {
+  margin-bottom: 25px;
+}
+
+.food-items-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.food-item-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.food-item-card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.food-item-info {
+  padding: 18px;
+}
+
+.food-item-info h3 {
+  margin-bottom: 8px;
+}
+
+.food-item-info p {
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.food-item-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.food-item-bottom strong {
+  color: var(--primary);
+}
+
+.food-item-bottom button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}

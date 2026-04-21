@@ -1,0 +1,70 @@
+.tracking-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.tracking-header h1 {
+  font-size: 2.4rem;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.tracking-header p {
+  color: var(--muted);
+}
+
+.tracking-box {
+  max-width: 800px;
+  margin: auto;
+  background: #fff;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+
+.order-meta {
+  margin-bottom: 28px;
+}
+
+.order-meta h2 {
+  margin-bottom: 10px;
+}
+
+.order-meta p {
+  color: var(--muted);
+}
+
+.tracking-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.track-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #f9fafb;
+  opacity: 0.6;
+}
+
+.track-step.active {
+  background: #fff7ed;
+  opacity: 1;
+  border-left: 4px solid var(--primary);
+}
+
+.track-step span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
