@@ -2,8 +2,18 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Navbar from '../components/Navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import { User, Mail, Phone, Lock, UserPlus, ArrowRight, Star, Clock, ShieldCheck } from 'lucide-react';
+// Footer not used here
+// import Footer from '../components/Footer.jsx';
+import {
+  User,
+  Mail,
+  Phone,
+  Lock,
+  ArrowRight,
+  Star,
+  Clock,
+  ShieldCheck,
+} from 'lucide-react';
 import '../assets/css/style.css';
 import '../assets/css/auth.css';
 import '../assets/css/responsive.css';
@@ -18,7 +28,7 @@ const Register = () => {
     email: '',
     phone: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -27,7 +37,7 @@ const Register = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -37,19 +47,24 @@ const Register = () => {
       alert('Passwords do not match');
       return;
     }
-    
+
     setLoading(true);
     setError('');
     try {
-      const res = await register(formData.name, formData.email, formData.password);
+      const res = await register(
+        formData.name,
+        formData.email,
+        formData.password
+      );
       if (res && res.success) {
-        // Redirect to OTP verification page
         navigate(`/verify-email?email=${formData.email}`);
       } else {
         setError(res?.message || 'Registration failed');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Error during registration');
+      setError(
+        err.response?.data?.message || 'Error during registration'
+      );
     } finally {
       setLoading(false);
     }
@@ -59,21 +74,32 @@ const Register = () => {
     <div className="auth-page-v3">
       <Navbar />
       <div className="auth-ambient-v3"></div>
-      
+
       <div className="auth-split-wrapper">
         {/* Visual Brand Side */}
         <div className="auth-brand-side">
-          <img src={authBg} alt="Midnight Culinary" className="brand-bg-image" />
+          <img
+            src={authBg}
+            alt="Midnight Culinary"
+            className="brand-bg-image"
+          />
           <div className="brand-overlay"></div>
-          
+
           <div className="brand-content">
-            <h2>Join the <span>Eatzo</span> family.</h2>
-            <p>Savor the exclusive world of gourmet delivery. Join thousands who trust us for their midnight cravings.</p>
+            <h2>
+              Join the <span>Eatzo</span> family.
+            </h2>
+            <p>
+              Savor the exclusive world of gourmet delivery. Join thousands who
+              trust us for their midnight cravings.
+            </p>
           </div>
 
           {/* Floating Badges */}
           <div className="floating-glass-badge badge-1">
-            <div className="badge-icon"><Star color="#fbbf24" fill="#fbbf24" size={24} /></div>
+            <div className="badge-icon">
+              <Star color="#fbbf24" fill="#fbbf24" size={24} />
+            </div>
             <div className="badge-text">
               <div>Top Tier Quality</div>
               <div>Curated for you</div>
@@ -81,7 +107,9 @@ const Register = () => {
           </div>
 
           <div className="floating-glass-badge badge-2">
-            <div className="badge-icon"><ShieldCheck color="#22c55e" size={24} /></div>
+            <div className="badge-icon">
+              <ShieldCheck color="#22c55e" size={24} />
+            </div>
             <div className="badge-text">
               <div>Secure Service</div>
               <div>Safe & Trustworthy</div>
@@ -94,7 +122,9 @@ const Register = () => {
           <div className="form-container">
             <div className="auth-header-new">
               <h3>Register</h3>
-              <p>Already joined? <Link to="/login">Login to account</Link></p>
+              <p>
+                Already joined? <Link to="/login">Login to account</Link>
+              </p>
             </div>
 
             {error && (
@@ -185,17 +215,44 @@ const Register = () => {
                 </div>
               </div>
 
-              <button type="submit" className="btn-auth-full" disabled={loading}>
-                {loading ? 'Creating Account...' : (
-                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <button
+                type="submit"
+                className="btn-auth-full"
+                disabled={loading}
+              >
+                {loading ? (
+                  'Creating Account...'
+                ) : (
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                    }}
+                  >
                     Join Now <ArrowRight size={20} />
                   </span>
                 )}
               </button>
 
-              <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <div
+                style={{
+                  marginTop: '30px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '15px',
+                }}
+              >
                 <Clock color="#06b6d4" size={20} />
-                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Account setup takes less than 60 seconds.</span>
+                <span
+                  style={{
+                    fontSize: '0.85rem',
+                    color: '#64748b',
+                  }}
+                >
+                  Account setup takes less than 60 seconds.
+                </span>
               </div>
             </form>
           </div>

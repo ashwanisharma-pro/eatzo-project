@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+// AuthContext not used here, so remove:
+// import { AuthContext } from '../context/AuthContext';
 import Navbar from '../components/Navbar.jsx';
-import {
-  CheckCircle,
-  ArrowRight,
-  ShieldCheck,
-  RefreshCw,
-} from 'lucide-react';
+import { CheckCircle, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 import '../assets/css/auth.css';
 import authBg from '../assets/images/midnight-auth-bg.png';
@@ -15,7 +11,6 @@ import authBg from '../assets/images/midnight-auth-bg.png';
 const VerifyEmail = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { /* login */ } = useContext(AuthContext); // currently not used
 
   const queryParams = new URLSearchParams(location.search);
   const email = queryParams.get('email');
@@ -102,9 +97,7 @@ const VerifyEmail = () => {
             )}
 
             {success ? (
-              <div
-                style={{ textAlign: 'center', padding: '40px' }}
-              >
+              <div style={{ textAlign: 'center', padding: '40px' }}>
                 <CheckCircle
                   color="#22c55e"
                   size={80}
