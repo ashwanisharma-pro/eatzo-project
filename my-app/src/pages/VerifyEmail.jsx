@@ -1,8 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Navbar from '../components/Navbar.jsx';
-import { Mail, CheckCircle, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
+import {
+  CheckCircle,
+  ArrowRight,
+  ShieldCheck,
+  RefreshCw,
+} from 'lucide-react';
 import axios from 'axios';
 import '../assets/css/auth.css';
 import authBg from '../assets/images/midnight-auth-bg.png';
@@ -10,9 +15,8 @@ import authBg from '../assets/images/midnight-auth-bg.png';
 const VerifyEmail = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useContext(AuthContext); // We'll use login to set the token after verification
+  const { /* login */ } = useContext(AuthContext); // currently not used
 
-  // Extract email from query params
   const queryParams = new URLSearchParams(location.search);
   const email = queryParams.get('email');
 
@@ -37,18 +41,23 @@ const VerifyEmail = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+      const res = await axios.post(
+        'http://localhost:5000/api/auth/verify-otp',
+        { email, otp }
+      );
       if (res.data.success) {
         setSuccess(true);
-        // Store user data if returned (like logic in AuthContext)
         localStorage.setItem('user', JSON.stringify(res.data.data));
         setTimeout(() => {
           navigate('/');
-           window.location.reload(); // Refresh to update auth state
+          window.location.reload();
         }, 2000);
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Verification failed. Try again.');
+      setError(
+        err.response?.data?.message ||
+          'Verification failed. Try again.'
+      );
     } finally {
       setLoading(false);
     }
@@ -58,14 +67,23 @@ const VerifyEmail = () => {
     <div className="auth-page-v3">
       <Navbar />
       <div className="auth-ambient-v3"></div>
-      
+
       <div className="auth-split-wrapper">
         <div className="auth-brand-side">
-          <img src={authBg} alt="Verification" className="brand-bg-image" />
+          <img
+            src={authBg}
+            alt="Verification"
+            className="brand-bg-image"
+          />
           <div className="brand-overlay"></div>
           <div className="brand-content">
-            <h2>One last <span>step.</span></h2>
-            <p>We've sent a 6-digit security code to <strong>{email}</strong>. Enter it below to unlock your Eatzo experience.</p>
+            <h2>
+              One last <span>step.</span>
+            </h2>
+            <p>
+              We&apos;ve sent a 6-digit security code to <strong>{email}</strong>.
+              Enter it below to unlock your Eatzo experience.
+            </p>
           </div>
         </div>
 
@@ -84,10 +102,26 @@ const VerifyEmail = () => {
             )}
 
             {success ? (
-              <div style={{ textAlign: 'center', padding: '40px' }}>
-                <CheckCircle color="#22c55e" size={80} style={{ marginBottom: '20px' }} />
-                <h4 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '10px' }}>Verification Successful!</h4>
-                <p style={{ color: '#94a3b8' }}>Redirecting you to the home page...</p>
+              <div
+                style={{ textAlign: 'center', padding: '40px' }}
+              >
+                <CheckCircle
+                  color="#22c55e"
+                  size={80}
+                  style={{ marginBottom: '20px' }}
+                />
+                <h4
+                  style={{
+                    color: '#fff',
+                    fontSize: '1.5rem',
+                    marginBottom: '10px',
+                  }}
+                >
+                  Verification Successful!
+                </h4>
+                <p style={{ color: '#94a3b8' }}>
+                  Redirecting you to the home page...
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="auth-form-main">
@@ -100,28 +134,74 @@ const VerifyEmail = () => {
                       type="text"
                       maxLength="6"
                       value={otp}
-                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                      onChange={(e) =>
+                        setOtp(e.target.value.replace(/\D/g, ''))
+                      }
                       placeholder="000000"
-                      style={{ letterSpacing: '8px', fontSize: '1.5rem', textAlign: 'center', paddingLeft: '16px' }}
+                      style={{
+                        letterSpacing: '8px',
+                        fontSize: '1.5rem',
+                        textAlign: 'center',
+                        paddingLeft: '16px',
+                      }}
                       required
                     />
                   </div>
-                  {error && <p style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '10px' }}>{error}</p>}
+                  {error && (
+                    <p
+                      style={{
+                        color: '#ef4444',
+                        fontSize: '0.85rem',
+                        marginTop: '10px',
+                      }}
+                    >
+                      {error}
+                    </p>
+                  )}
                 </div>
 
-                <button type="submit" className="btn-auth-full" disabled={loading}>
-                  {loading ? 'Verifying...' : (
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                <button
+                  type="submit"
+                  className="btn-auth-full"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    'Verifying...'
+                  ) : (
+                    <span
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '10px',
+                      }}
+                    >
                       Verify Account <ArrowRight size={20} />
                     </span>
                   )}
                 </button>
 
-                <div style={{ marginTop: '40px', textAlign: 'center' }}>
-                  <button 
-                    type="button" 
-                    onClick={() => alert("OTP Resent! (Simulated)")}
-                    style={{ background: 'none', border: 'none', color: '#06b6d4', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 auto' }}
+                <div
+                  style={{
+                    marginTop: '40px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      alert('OTP Resent! (Simulated)')
+                    }
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#06b6d4',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      margin: '0 auto',
+                    }}
                   >
                     <RefreshCw size={16} /> Resend Code
                   </button>
