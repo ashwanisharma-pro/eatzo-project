@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Navbar from '../components/Navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import { Mail, Lock, LogIn, ArrowRight, Star, Clock, ShieldCheck } from 'lucide-react';
+// Footer not used, so remove this import
+// import Footer from '../components/Footer.jsx';
+import { Mail, Lock, ArrowRight, Star, Clock, ShieldCheck } from 'lucide-react';
 import '../assets/css/style.css';
 import '../assets/css/auth.css';
 import '../assets/css/responsive.css';
@@ -15,7 +16,7 @@ const Login = () => {
 
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -40,7 +41,10 @@ const Login = () => {
         setError(res?.message || 'Invalid email or password');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      setError(
+        err.response?.data?.message ||
+          'Login failed. Please try again.'
+      );
     } finally {
       setLoading(false);
     }
@@ -50,21 +54,32 @@ const Login = () => {
     <div className="auth-page-v3">
       <Navbar />
       <div className="auth-ambient-v3"></div>
-      
+
       <div className="auth-split-wrapper">
         {/* Visual Brand Side */}
         <div className="auth-brand-side">
-          <img src={authBg} alt="Midnight Culinary" className="brand-bg-image" />
+          <img
+            src={authBg}
+            alt="Midnight Culinary"
+            className="brand-bg-image"
+          />
           <div className="brand-overlay"></div>
-          
+
           <div className="brand-content">
-            <h2>Welcome back to <span>Eatzo.</span></h2>
-            <p>Experience the finest flavors delivered with premium precision. Your midnight cravings meet their match.</p>
+            <h2>
+              Welcome back to <span>Eatzo.</span>
+            </h2>
+            <p>
+              Experience the finest flavors delivered with premium
+              precision. Your midnight cravings meet their match.
+            </p>
           </div>
 
           {/* Floating Badges */}
           <div className="floating-glass-badge badge-1">
-            <div className="badge-icon"><Star color="#fbbf24" fill="#fbbf24" size={24} /></div>
+            <div className="badge-icon">
+              <Star color="#fbbf24" fill="#fbbf24" size={24} />
+            </div>
             <div className="badge-text">
               <div>4.8/5 Rating</div>
               <div>From 10k+ foodies</div>
@@ -72,7 +87,9 @@ const Login = () => {
           </div>
 
           <div className="floating-glass-badge badge-2">
-            <div className="badge-icon"><Clock color="#22c55e" size={24} /></div>
+            <div className="badge-icon">
+              <Clock color="#22c55e" size={24} />
+            </div>
             <div className="badge-text">
               <div>~25m Delivery</div>
               <div>Hot & fresh arrival</div>
@@ -85,7 +102,10 @@ const Login = () => {
           <div className="form-container">
             <div className="auth-header-new">
               <h3>Login</h3>
-              <p>Don't have an account? <Link to="/register">Register now</Link></p>
+              <p>
+                Don't have an account?{' '}
+                <Link to="/register">Register now</Link>
+              </p>
             </div>
 
             {error && (
@@ -128,23 +148,62 @@ const Login = () => {
                 </div>
               </div>
 
-              <div style={{ textAlign: 'right', marginBottom: '30px' }}>
-                <Link to="/forgot-password" style={{ color: '#94a3b8', fontSize: '0.9rem', textDecoration: 'none' }}>
+              <div
+                style={{
+                  textAlign: 'right',
+                  marginBottom: '30px',
+                }}
+              >
+                <Link
+                  to="/forgot-password"
+                  style={{
+                    color: '#94a3b8',
+                    fontSize: '0.9rem',
+                    textDecoration: 'none',
+                  }}
+                >
                   Forgot password?
                 </Link>
               </div>
 
-              <button type="submit" className="btn-auth-full" disabled={loading}>
-                {loading ? 'Authenticating...' : (
-                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              <button
+                type="submit"
+                className="btn-auth-full"
+                disabled={loading}
+              >
+                {loading ? (
+                  'Authenticating...'
+                ) : (
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                    }}
+                  >
                     Login <ArrowRight size={20} />
                   </span>
                 )}
               </button>
 
-              <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <div
+                style={{
+                  marginTop: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '15px',
+                }}
+              >
                 <ShieldCheck color="#22c55e" size={20} />
-                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Secure and encrypted authentication.</span>
+                <span
+                  style={{
+                    fontSize: '0.85rem',
+                    color: '#64748b',
+                  }}
+                >
+                  Secure and encrypted authentication.
+                </span>
               </div>
             </form>
           </div>

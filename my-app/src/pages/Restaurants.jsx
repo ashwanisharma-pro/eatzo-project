@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import RestaurantCard from '../components/RestaurantCard.jsx';
@@ -19,12 +18,11 @@ const Restaurants = () => {
       try {
         const res = await api.get('/restaurants');
         if (res.data.success) {
-          // Provide default missing fields for mock compatibility in UI (optional)
-          const mapped = res.data.data.map(r => ({
+          const mapped = res.data.data.map((r) => ({
             ...r,
             cuisine: r.description || 'General',
             deliveryTime: '30 mins',
-            costForTwo: '₹400'
+            costForTwo: '₹400',
           }));
           setRestaurants(mapped);
         }
@@ -35,10 +33,13 @@ const Restaurants = () => {
     fetchRestaurants();
   }, []);
 
-  const filteredRestaurants = restaurants.filter(restaurant => {
-    const matchesSearch = restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         restaurant.cuisine.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCuisine = !cuisineFilter || restaurant.cuisine.includes(cuisineFilter);
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    const term = searchTerm.toLowerCase();
+    const matchesSearch =
+      restaurant.name.toLowerCase().includes(term) ||
+      restaurant.cuisine.toLowerCase().includes(term);
+    const matchesCuisine =
+      !cuisineFilter || restaurant.cuisine.includes(cuisineFilter);
     return matchesSearch && matchesCuisine;
   });
 
@@ -49,9 +50,15 @@ const Restaurants = () => {
       case 'deliveryTime':
         return parseInt(a.deliveryTime) - parseInt(b.deliveryTime);
       case 'costLowHigh':
-        return parseInt(a.costForTwo.replace('₹', '')) - parseInt(b.costForTwo.replace('₹', ''));
+        return (
+          parseInt(a.costForTwo.replace('₹', '')) -
+          parseInt(b.costForTwo.replace('₹', ''))
+        );
       case 'costHighLow':
-        return parseInt(b.costForTwo.replace('₹', '')) - parseInt(a.costForTwo.replace('₹', ''));
+        return (
+          parseInt(b.costForTwo.replace('₹', '')) -
+          parseInt(a.costForTwo.replace('₹', ''))
+        );
       default:
         return 0;
     }
@@ -103,7 +110,10 @@ const Restaurants = () => {
 
           <div className="restaurant-list-grid">
             {sortedRestaurants.map((restaurant) => (
-              <RestaurantCard key={restaurant._id || restaurant.id} restaurant={restaurant} />
+              <RestaurantCard
+                key={restaurant._id || restaurant.id}
+                restaurant={restaurant}
+              />
             ))}
           </div>
         </section>
